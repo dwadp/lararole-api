@@ -31,7 +31,7 @@ services:
     mysql:
         image: 'mysql:8.0'
         ports:
-            - '${SAIL_DB_POST}:3306'
+            - '${SAIL_DB_PORT}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_DATABASE: '${DB_DATABASE}'
