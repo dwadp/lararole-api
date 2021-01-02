@@ -21,8 +21,6 @@ class RolePermissionSeeder extends Seeder
 
         $writer = Role::where('name', 'Writer')->first();
 
-        $user = Role::where('name', 'User')->first();
-
         $admin->attachPermissions(Permission::all());
 
         $editor->attachPermissions(
@@ -31,10 +29,6 @@ class RolePermissionSeeder extends Seeder
 
         $writer->attachPermissions(
             Permission::whereNotIn('name', ['edit-post', 'delete-post'])->get()
-        );
-
-        $user->attachPermissions(
-            Permission::whereIn('name', ['detail-post', 'all-post'])->get()
         );
     }
 }

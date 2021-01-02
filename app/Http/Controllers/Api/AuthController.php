@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
@@ -12,13 +13,8 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -31,7 +27,8 @@ class AuthController extends Controller
             'status' => true,
             'message' => '',
             'data' => [
-                'token' => $user->createToken($request->email)->plainTextToken
+                'token' => $user->createToken($request->email)->plainTextToken,
+                'user' => new UserResource($user)
             ]
         ]);
     }
