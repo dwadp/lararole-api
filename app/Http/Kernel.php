@@ -42,9 +42,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            ForceJsonResponse::class,
-            // EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
+            EnsureFrontendRequestsAreStateful::class,
+            // 'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

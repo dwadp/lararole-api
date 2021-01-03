@@ -28,7 +28,6 @@ class AuthController extends Controller
             'message' => '',
             'data' => [
                 'token' => $user->createToken($request->email)->plainTextToken,
-                'user' => new UserResource($user)
             ]
         ]);
     }

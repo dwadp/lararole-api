@@ -76,7 +76,17 @@ Route::middleware('auth:sanctum')->prefix('permissions')->name('permissions.')->
 });
 
 Route::middleware('auth:sanctum')->prefix('posts')->name('posts.')->group(function() {
-    Route::middleware('permission:create-post')->post('/store', [PostController::class, 'store']);
-    Route::middleware('permission:edit-post')->put('/update/{id}', [PostController::class, 'update']);
-    Route::middleware('permission:delete-post')->delete('/delete/{id}', [PostController::class, 'delete']);
+    Route::middleware('permission:create-post')
+            ->post('/store', [PostController::class, 'store']);
+
+    Route::middleware('permission:edit-post')
+            ->put('/update/{id}', [PostController::class, 'update']);
+
+    Route::middleware('permission:delete-post')
+            ->delete('/delete/{id}', [PostController::class, 'delete']);
+
+    Route::get('/detail/{post}', [PostController::class, 'show']);
+
+    Route::middleware('permission:all-posts')
+            ->get('/', [PostController::class, 'index']);
 });
